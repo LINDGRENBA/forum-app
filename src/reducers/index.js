@@ -3,9 +3,8 @@ import formVisibleReducer from './form-visible-reducer';
 import postListReducer from './post-list-reducer';
 
 const rootReducer = combineReducers({
-  formVisibleReducer: formVisibleReducer,
+  formVisibleOnPage: formVisibleReducer,
   mainPostList: postListReducer
-
-})
+});
 
 export default rootReducer;
