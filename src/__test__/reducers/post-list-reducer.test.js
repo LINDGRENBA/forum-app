@@ -1,21 +1,21 @@
 import postListReducer from '../../reducers/post-list-reducer';
 
 describe('postListReducer', () => {
-
+  let currentTime = Date.now()
   const currentState = {
     1: {
       name: 'Steve',
       content: 'Check out this cat meme',
       score: 0,
       id: 1,
-      timestamp: Date.now()
+      timestamp: currentTime
     },
     2: {
       name: 'Lisa',
       content: 'Check out Steve\'s cat music.',
       score: 0,
       id: 2,
-      timestamp: Date.now()
+      timestamp: currentTime
     }
   }
 
@@ -25,7 +25,7 @@ describe('postListReducer', () => {
     content: 'Check out this cat meme',
     score: 0,
     id: 1,
-    timestamp: Date.now()
+    timestamp: currentTime
   };
   test('Should return default state if there is no action type passed into reducer', () => {
     expect(postListReducer({}, {type: null})).toEqual({});
@@ -63,8 +63,9 @@ describe('postListReducer', () => {
         content: 'Check out Steve\'s cat music.',
         score: 0,
         id: 2,
-        timestamp: Date.now()
+        timestamp: currentTime
       }
     });
+    console.log(currentTime)
   });
 });
