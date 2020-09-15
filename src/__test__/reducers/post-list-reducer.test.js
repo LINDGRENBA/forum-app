@@ -1,6 +1,24 @@
 import postListReducer from '../../reducers/post-list-reducer';
 
 describe('postListReducer', () => {
+
+  const currentState = {
+    1: {
+      name: 'Steve',
+      content: 'Check out this cat meme',
+      score: 0,
+      id: 1,
+      timestamp: Date.now()
+    },
+    2: {
+      name: 'Lisa',
+      content: 'Check out Steve\'s cat music.',
+      score: 0,
+      id: 2,
+      timestamp: Date.now()
+    }
+  }
+
   let action;
   const postData = {
     name: 'Steve',
@@ -30,6 +48,22 @@ describe('postListReducer', () => {
         score: score,
         id: id,
         timestamp: timestamp
+      }
+    });
+  });
+
+  test('Should successfully delete a post', () => {
+    action = {
+      type: 'DELETE_POST',
+      id: 1
+    };
+    expect(postListReducer(currentState, action)).toEqual({
+      2: {
+        name: 'Lisa',
+        content: 'Check out Steve\'s cat music.',
+        score: 0,
+        id: 2,
+        timestamp: Date.now()
       }
     });
   });

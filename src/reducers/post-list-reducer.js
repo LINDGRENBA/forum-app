@@ -11,6 +11,10 @@ export default (state = {}, action) => {
           timestamp: timestamp
         }
       });
+    case 'DELETE_POST':
+      const newState = {...state};
+      delete newState[id];
+      return newState;
     default:
       return state;
   }
