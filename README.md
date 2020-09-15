@@ -6,6 +6,10 @@
 
 <p align = "center"> This is reddit but 2.
 
+## <p align = "center"> Component Model
+
+![project component model](./src/images/componentModel.PNG)
+
 ## **✅`REQUIREMENTS`**
 * Install [Visual Studio Code](https://code.visualstudio.com/)
 * Install [Git v2.62.2+](https://git-scm.com/downloads/)
