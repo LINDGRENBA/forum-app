@@ -66,6 +66,5 @@ describe('postListReducer', () => {
         timestamp: currentTime
       }
     });
-    console.log(currentTime)
   });
 });
