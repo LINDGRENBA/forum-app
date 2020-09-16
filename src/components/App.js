@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import Header from "./Header";
-import './App.css';
+// import './App.css';
+import PostControl from './PostControl';
 
 function App() {
   return (
