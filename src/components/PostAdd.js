@@ -8,7 +8,7 @@ function PostAdd(props){
   // method to handle form submission
   function handleNewPostFormSubmission(event) {
     event.preventDefault();
-    props.onNewPostCreation({name:event.target.name.value, content:event.target.content.value, timestamp:event.target.timestamp.value, id:v4()});
+    props.onNewPostCreation({name:event.target.name.value, content:event.target.content.value, score: 0, timestamp: Date.now(), id:v4()});
   }
 
   return (

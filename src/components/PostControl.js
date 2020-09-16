@@ -16,27 +16,28 @@ class PostControl extends React.Component {
   }
   
   handleClick = () => {
-    // if (this.state.selectedPost != null){
-    //   this.setState({
-    //     // selectedPost: null,
-    //     // editing: false
-    //   });
-    // } else {
+    if (this.state.selectedPost != null){
+      this.setState({
+        selectedPost: null,
+        // editing: false
+      });
+    } else {
       const {dispatch} = this.props;
       const action = {
         type: 'TOGGLE_FORM'
       }
       dispatch (action);
-    // }
-  }
+    }
+  };
 
   handleAddingNewPostToList = (newPost) => {
     const {dispatch} = this.props;
-    const { id, name, content, timestamp } = newPost;
+    const { id, name, content, timestamp, score } = newPost;
     const action = {
       type: 'ADD_POST',
       name: name,
       content: content,
+      score: score,
       timestamp: timestamp,
       id: id,
     }
@@ -45,6 +46,39 @@ class PostControl extends React.Component {
       type: 'TOGGLE_FORM',
     }
     dispatch(action2);
+  }
+
+  handleUpvotePost = (postId) => {
+    const {dispatch} = this.props;
+    const upvotePost = this.props.mainPostList[postId];
+    const { name, content, timestamp, score, id } = upvotePost;
+    const newScore = score + 1;
+    const action = {
+      type: 'ADD_POST',
+      name: name,
+      content: content,
+      score: newScore,
+      timestamp: timestamp,
+      id: id
+    }
+    console.log(action);
+    dispatch(action)
+  }
+
+  handleDownvotePost = (postId) => {
+    const {dispatch} = this.props;
+    const upvotePost = this.props.mainPostList[postId];
+    const { name, content, timestamp, score, id } = upvotePost;
+    const newScore = score - 1;
+    const action = {
+      type: 'ADD_POST',
+      name: name,
+      content: content,
+      score: newScore,
+      timestamp: timestamp,
+      id: id
+    }
+    dispatch(action)
   }
 
   handleChangingSelectedPost = (id) => {
@@ -64,8 +98,8 @@ class PostControl extends React.Component {
       currentlyVisibleState = <PostAdd onNewPostCreation={this.handleAddingNewPostToList} />;
       buttonText = "Return to Home"
     } else {
-      currentlyVisibleState = < PostList postList = {this.state.mainPostList} sort ={this.props.sortOrder} />;
-      buttonText = "Return to List"
+      currentlyVisibleState = < PostList postList = {this.props.mainPostList} sortOrder ={this.props.sortOrder} onPostSelection={this.handleChangingSelectedPost} onUpvote={this.handleUpvotePost} onDownvote={this.handleDownvotePost}/>;
+      buttonText = "Add Post(go to post form)";
     }
 
     return ( 
@@ -73,14 +107,14 @@ class PostControl extends React.Component {
         {currentlyVisibleState}
         <button onClick ={this.handleClick}>{buttonText}</button>
         <br/>
-        <PostAdd />
       </React.Fragment>
     );
   }
 }
 
 PostControl.propTypes = {
-  mainPostList: PropTypes.object
+  mainPostList: PropTypes.object,
+  formVisibleOnPage: PropTypes.bool
 }
 
 const mapStateToProps = state => {
@@ -96,21 +130,3 @@ const mapStateToProps = state => {
 
 PostControl = connect(mapStateToProps)(PostControl);
 export default PostControl;
-
-// data = {
-// 1: {name: 'Steve',
-// content: 'Cat meme',
-// timestamp: Date.now(),
-// score: 10
-// },
-// 2: {name: 'Jessica',
-// content: 'Cat picture',
-// timestamp: Date.now(),
-// score: 19
-// },
-// 3: {name: 'John',
-// content: 'Cat video',
-// timestamp: Date.now(),
-// score: 25
-// }
-// }
