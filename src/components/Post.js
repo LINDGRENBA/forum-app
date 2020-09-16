@@ -1,31 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Post(){ 
+function Post(props){ 
   return (
     <React.Fragment>
-      <div>
-        <h3>
-          name: Bella
-        </h3>
-        <p>Timestamp</p>
-        <p>Content</p>
-        <p>Score</p>
+      <div onClick = {() => props.whenPostClicked(props.id)}>
+        <h3>{props.name}</h3>
+        <p>{props.timestamp}</p>
+        <p>{props.content}</p>
+        <p>{props.score}</p>
+        <div>
+          <button>Upvote</button>
+          <button>Downvote</button>
+        </div>
+      <hr/>
       </div>
-      <div>
-        <button>Upvote</button>
-        <button>Downvote</button>
-      </div>
-      <hr></hr>
     </React.Fragment>
   );
 }
 
-// Post.propTypes = {
-//   name:PropTypes.string.isRequired,
-//   content:PropTypes.string.isRequired,
-//   score:PropTypes.number.isRequired,
-  // whenPostClicked: PropTypes.func,
-// };
+Post.propTypes = {
+  name:PropTypes.string.isRequired,
+  content:PropTypes.string.isRequired,
+  score:PropTypes.number.isRequired,
+  whenPostClicked: PropTypes.func,
+};
 
 export default Post;

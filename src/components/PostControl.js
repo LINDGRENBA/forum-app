@@ -1,7 +1,7 @@
 import React from 'react';
 import PostAdd from './PostAdd';
 import PostDetail from './PostDetail';
-import PostEdit from './PostEdit';
+// import PostEdit from './PostEdit';
 import PostList from './PostList';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ class PostControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      selectedTicket: null,
+      selectedPost: null,
       editing: false
     };
   }
@@ -47,16 +47,24 @@ class PostControl extends React.Component {
     dispatch(action2);
   }
 
+  handleChangingSelectedPost = (id) => {
+    const selectedPost = this.props.mainPostList[id];
+    this.setState({selectedPost: selectedPost});
+  }
+
 
   render() {
 
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.props.formVisibleOnPage){
+    if(this.state.selectedPost != null) {
+      currentlyVisibleState = <PostDetail post = {this.state.selectedPost} />; 
+      buttonText = "Return to List";
+    } else if (this.props.formVisibleOnPage){
       currentlyVisibleState = <PostAdd onNewPostCreation={this.handleAddingNewPostToList} />;
       buttonText = "Return to Home"
     } else {
-      currentlyVisibleState = < PostList postList = {this.state.mainPostList}  sort ={this.props.sortOrder} />;
+      currentlyVisibleState = < PostList postList = {this.state.mainPostList} sort ={this.props.sortOrder} />;
       buttonText = "Return to List"
     }
 

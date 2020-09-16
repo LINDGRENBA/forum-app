@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ReusableForm(){
-  const buttonText = "Post";
+function ReusableForm(props){
   return (
     <React.Fragment>
       <form onSubmit={props.formSubmissionHandler}>
@@ -17,6 +16,7 @@ function ReusableForm(){
         />
       <br/>
       <button type='submit'>{props.buttonText}</button>
+      </form>
     </React.Fragment>
   );
 }
