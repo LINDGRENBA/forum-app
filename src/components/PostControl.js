@@ -45,6 +45,14 @@ PostControl.propTypes = {
 
 const mapStateToProps = state => {
   const sortedPostList = state
+  let sortedArray = Object
+  .keys(data).sort(function(a, b){
+      return data[b].score - data[a].score;})
+
+  for (let i = 0; i < sortedArray.length; i++){
+  sorted[i] = data[sortedArray[i]];
+  }
+  console.log(sorted);
   return {
     mainPostList: state.mainPostList,
     formVisibleOnPage: state.formVisibleOnPage
