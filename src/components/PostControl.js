@@ -15,23 +15,55 @@ class PostControl extends React.Component {
     };
   }
   
-  // handleAddingNewPostToList = (newPost) => {
+  handleClick = () => {
+    // if (this.state.selectedPost != null){
+    //   this.setState({
+    //     // selectedPost: null,
+    //     // editing: false
+    //   });
+    // } else {
+      const {dispatch} = this.props;
+      const action = {
+        type: 'TOGGLE_FORM'
+      }
+      dispatch (action);
+    // }
+  }
 
-  // }
+  handleAddingNewPostToList = (newPost) => {
+    const {dispatch} = this.props;
+    const { id, name, content, timestamp } = newPost;
+    const action = {
+      type: 'ADD_POST',
+      name: name,
+      content: content,
+      timestamp: timestamp,
+      id: id,
+    }
+    dispatch(action);
+    const action2 = {
+      type: 'TOGGLE_FORM',
+    }
+    dispatch(action2);
+  }
 
 
   render() {
 
     let currentlyVisibleState = null;
     let buttonText = null;
-
-    currentlyVisibleState = < PostList />;
-    buttonText = "Return to List"
+    if (this.props.formVisibleOnPage){
+      currentlyVisibleState = <PostAdd onNewPostCreation={this.handleAddingNewPostToList} />;
+      buttonText = "Return to Home"
+    } else {
+      currentlyVisibleState = < PostList postList = {this.state.mainPostList}  sort ={this.props.sortOrder} />;
+      buttonText = "Return to List"
+    }
 
     return ( 
       <React.Fragment>
         {currentlyVisibleState}
-        <button >{buttonText}</button>
+        <button onClick ={this.handleClick}>{buttonText}</button>
         <br/>
         <PostAdd />
       </React.Fragment>
@@ -44,16 +76,11 @@ PostControl.propTypes = {
 }
 
 const mapStateToProps = state => {
-  const sortedPostList = state
-  let sortedArray = Object
-  .keys(data).sort(function(a, b){
-      return data[b].score - data[a].score;})
+  const sortOrder = Object
+  .keys(state.mainPostList).sort((a, b) => state.mainPostList[b].score - state.mainPostList[a].score)
 
-  for (let i = 0; i < sortedArray.length; i++){
-  sorted[i] = data[sortedArray[i]];
-  }
-  console.log(sorted);
   return {
+    sortOrder: sortOrder,
     mainPostList: state.mainPostList,
     formVisibleOnPage: state.formVisibleOnPage
   } 
@@ -62,20 +89,20 @@ const mapStateToProps = state => {
 PostControl = connect(mapStateToProps)(PostControl);
 export default PostControl;
 
-data = {
-1: {name: 'Steve',
-content: 'Cat meme',
-timestamp: Date.now(),
-score: 10
-},
-2: {name: 'Jessica',
-content: 'Cat picture',
-timestamp: Date.now(),
-score: 19
-},
-3: {name: 'John',
-content: 'Cat video',
-timestamp: Date.now(),
-score: 25
-}
-}
+// data = {
+// 1: {name: 'Steve',
+// content: 'Cat meme',
+// timestamp: Date.now(),
+// score: 10
+// },
+// 2: {name: 'Jessica',
+// content: 'Cat picture',
+// timestamp: Date.now(),
+// score: 19
+// },
+// 3: {name: 'John',
+// content: 'Cat video',
+// timestamp: Date.now(),
+// score: 25
+// }
+// }
